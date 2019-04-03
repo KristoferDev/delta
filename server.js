@@ -1,9 +1,28 @@
+const path = require('path');
+const mongoose = require('mongoose');
 const express = require('express');
+
+const userRoutes = require('./routes/users');
+const errorController = require('./controllers/error');
+
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.send('Hello World!');
-});
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+//DB Config
+const db = require("./config/keys").mongoURI;
+
+//Connect to MongoDB
+mongoose
+  .connect(db, { useNewUrlParser: true })
+  .then(() => console.log("Mongodb connected"))
+  .catch(err => console.log(err));
+
+app.use('/', userRoutes);
+app.use(errorController.get404);
 
 const port = 3000;
 app.listen(port, () => {
