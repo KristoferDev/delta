@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
-// const passport = require('passport');
 const User = require('../models/User');
 
 exports.getLogin = (req, res) => {
@@ -32,19 +31,18 @@ exports.postLogin = (req, res) => {
           if(isMatch) {
             // User Matched
             const payload = { id: user.id, name: user.name } // Create jwt payload
-
             // Sign Token
             jwt.sign(
               payload, 
               keys.secretOrKey, 
               { expiresIn: 3600 }, 
               (err, token) => {
-                console.log(token);
                 res.render('admin/landing', {
-                  pageTitle: 'Login',
+                  pageTitle: 'Admin',
                   success: 'True',
+                  user: user.name,
                   token: 'Bearer ' + token,
-                  path: '/login'
+                  path: '/landing'
                 });
               }
             );
@@ -98,7 +96,6 @@ exports.postRegister = (req, res) => {
           newUser
             .save()
             .then(user => {
-              console.log('Succes', user);
               res.render('admin/login', {
                 pageTitle: 'login',
                 path: '/login'
@@ -110,3 +107,10 @@ exports.postRegister = (req, res) => {
      }
   });
 };
+
+exports.getLanding = (req,res) => {
+  res.render('admin/landing', {
+    pageTitle: 'Admin',
+    path: '/admin'
+  });
+}

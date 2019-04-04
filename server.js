@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 //const passport = require('passport');
 
 const userRoutes = require('./routes/users');
+const pagesRoutes = require('./routes/pages');
 const errorController = require('./controllers/error');
 
 const app = express();
@@ -27,7 +28,9 @@ mongoose
   .then(() => console.log("Mongodb connected"))
   .catch(err => console.log(err));
 
-app.use('/', userRoutes);
+app.use('/', pagesRoutes);
+app.use('/admin', userRoutes);
+
 app.use(errorController.get404);
 
 const port = 3000;

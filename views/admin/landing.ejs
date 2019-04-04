@@ -3,5 +3,9 @@
 
 <body>
   <%- include('../includes/nav.ejs') %>
-   <h1>Welcome in!</h1>
+  <section>
+    <% if (user) { %>
+      <h2><%= user %></h2>
+    <% } %>
+  </section>
   <%- include('../includes/end.ejs') %>
