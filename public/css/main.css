@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-
+/*
 * {
   box-sizing: border-box;
 }
@@ -30,7 +30,7 @@ form {
 .image img {
   height: 100%;
 }
-
+*/
 /*************************
 *       Navigation
 *************************/
@@ -47,7 +47,6 @@ form {
   height: 100%;
   display: none;
   align-items: center;
-  margin: 0 auto;
 }
 
 .main-header__item-list {
